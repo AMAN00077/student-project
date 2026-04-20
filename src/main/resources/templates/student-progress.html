@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Performance Trend</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #1d976c, #93f9b9);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        canvas {
+            margin-top: 20px;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f4f6f7;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #34495e;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 18px;
+            background-color: #1d976c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            background-color: #117a65;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📈 Student Performance Trend</h2>
+
+    <canvas id="cgpaChart"
+            th:data-previous="${previousCgpa}"
+            th:data-predicted="${predictedCgpa}">
+    </canvas>
+
+    <div class="info-box">
+        <p><b>Previous CGPA:</b> <span th:text="${previousCgpa}"></span></p>
+        <p><b>Predicted CGPA:</b> <span th:text="${predictedCgpa}"></span></p>
+    </div>
+
+    <a href="/student/dashboard">⬅ Back to Dashboard</a>
+</div>
+
+<script>
+    const canvas = document.getElementById("cgpaChart");
+
+    const previous = parseFloat(canvas.getAttribute("data-previous"));
+    const predicted = parseFloat(canvas.getAttribute("data-predicted"));
+
+    new Chart(canvas, {
+        type: 'line',
+        data: {
+            labels: ['Previous CGPA', 'Predicted CGPA'],
+            datasets: [{
+                label: 'CGPA Trend',
+                data: [previous, predicted],
+                borderColor: '#1d976c',
+                backgroundColor: 'rgba(29, 151, 108, 0.2)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 6
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    min: 0,
+                    max: 10,
+                    title: {
+                        display: true,
+                        text: 'CGPA'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

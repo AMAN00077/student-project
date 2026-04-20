@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prediction Result</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .result-box {
+            background: #ecf3ff;
+            border-left: 6px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .pass { color: #2ecc71; }
+        .fail { color: #e74c3c; }
+
+        .low { color: #27ae60; }
+        .medium { color: #f39c12; }
+        .high { color: #c0392b; }
+
+        /* 🔥 NEW BOXES */
+        .reason-box {
+            background: #fdecea;
+            border-left: 6px solid #e74c3c;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .suggestion-box {
+            background: #eafaf1;
+            border-left: 6px solid #2ecc71;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .table-box {
+            margin-top: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 18px;
+            background-color: #3498db;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2 class="title">Prediction Result</h2>
+
+    <!-- PASS / FAIL -->
+    <div class="result-box">
+        <h3>Pass / Fail</h3>
+        <p class="result-value"
+           th:text="${passFail}"
+           th:classappend="${passFail == 'Pass'} ? 'pass' : 'fail'">
+        </p>
+    </div>
+
+    <!-- CGPA -->
+    <div class="result-box">
+        <h3>Predicted CGPA</h3>
+        <p class="result-value" th:text="${predictedCgpa}"></p>
+    </div>
+
+    <!-- RISK -->
+    <div class="result-box">
+        <h3>Risk Level</h3>
+        <p class="result-value"
+           th:text="${riskLevel}"
+           th:classappend="
+                ${riskLevel == 'Low'} ? 'low' :
+                (${riskLevel == 'Medium'} ? 'medium' : 'high')">
+        </p>
+    </div>
+
+    <!-- 🔥 REAL AI EXPLANATION -->
+    <div class="reason-box">
+        <h3>Why this prediction?</h3>
+        <p th:text="${reason}"></p>
+    </div>
+
+    <!-- 🔥 STUDY PLAN / SUGGESTION -->
+    <div class="suggestion-box">
+        <h3>Recommended Study Plan</h3>
+        <p th:text="${suggestion}"></p>
+    </div>
+
+    <!-- FEATURE IMPORTANCE -->
+    <div class="table-box" th:if="${explanation != null}">
+        <h3>Feature Importance (XAI)</h3>
+
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Impact (%)</th>
+            </tr>
+
+            <tr th:each="entry : ${explanation}">
+                <td th:text="${entry.key}"></td>
+                <td th:text="${entry.value}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <a class="back-btn" href="/student/dashboard">⬅ Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

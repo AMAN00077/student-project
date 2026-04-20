@@ -1,0 +1,229 @@
+/* ===============================
+   GLOBAL STYLES
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ===============================
+   HEADINGS
+================================ */
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+h2 {
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+}
+
+/* ===============================
+   FORMS
+================================ 
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+form label {
+    font-weight: 600;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Full-width button row 
+.form-actions {
+    grid-column: span 2;
+    text-align: center;
+}============*/
+/* ===============================
+   FORM GRID FIX
+================================ */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.form-actions {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    width: 50%;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+button {
+    background: #3498db;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #2c80b4;
+}
+
+/* ===============================
+   LOGIN PAGE
+================================ */
+.login-box {
+    max-width: 400px;
+    margin: 80px auto;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ===============================
+   RESULT BOX
+================================ */
+.result-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.result-box p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Risk Colors */
+.low {
+    color: green;
+    font-weight: bold;
+}
+
+.medium {
+    color: orange;
+    font-weight: bold;
+}
+
+.high {
+    color: red;
+    font-weight: bold;
+}
+
+/* ===============================
+   TABLE (EXPLANATION)
+================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+}
+
+table th {
+    background: #3498db;
+    color: white;
+    padding: 10px;
+}
+
+table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+table tr:hover {
+    background: #f2f6ff;
+}
+
+/* ===============================
+   LINKS
+================================ */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3498db;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   CHART PAGE
+================================ */
+canvas {
+    margin-top: 30px;
+}
+
+/* ===============================
+   FOOTER (OPTIONAL)
+================================ */
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+}
