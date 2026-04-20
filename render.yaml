@@ -1,1 +1,6 @@
-
+services:
+  - type: web
+    name: student-app
+    env: java
+    buildCommand: mvn clean install
+    startCommand: java -jar target/Performance_prediction-0.0.1-SNAPSHOT.jar
