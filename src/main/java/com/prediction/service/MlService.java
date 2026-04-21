@@ -65,7 +65,7 @@ public class MlService {
 	private final ObjectMapper mapper = new ObjectMapper();
 
 	// ✅ USE YOUR DEPLOYED API
-	private final String flaskUrl = "https://ml-api-1-h0h0.onrender.com";
+	private final String flaskUrl = "https://ml-api-1-h0h0.onrender.com/predict";
 
 	public Map<String, Object> predict(Map<String, Object> data) {
 
