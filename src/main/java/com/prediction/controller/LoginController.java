@@ -17,6 +17,11 @@ public class LoginController {
 	private UserRepository userRepository;
 
 	@GetMapping("/")
+	public String homePage() {
+		return "home"; // your new UI page
+	}
+
+	@GetMapping("/login")
 	public String loginPage() {
 		return "login";
 	}
