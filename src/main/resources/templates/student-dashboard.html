@@ -1,176 +1,182 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Student Dashboard</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
-        }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-top: 20px;
-        }
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #eef2f3, #dbe9f4);
+        margin: 0;
+        padding: 0;
+    }
 
-        .container {
-            width: 80%;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 20px;
+    }
 
+    .container {
+        width: 80%;
+        margin: 30px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #34495e;
+    }
+
+    input, select {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 6px rgba(52,152,219,0.4);
+    }
+
+    .form-actions {
+        grid-column: span 2;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 12px 30px;
+        font-size: 16px;
+        background: linear-gradient(45deg, #3498db, #5dade2);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        background: linear-gradient(45deg, #2e86c1, #3498db);
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
         .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: 1fr;
         }
+    }
+</style>
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 6px;
-            color: #34495e;
-        }
-
-        input, select {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 4px rgba(52,152,219,0.5);
-        }
-
-        .form-actions {
-            grid-column: span 2;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 12px 25px;
-            font-size: 16px;
-            background-color: #3498db;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background-color: #1f5fa8;
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 
 </head>
 
 <body>
 
-<h2>Student Dashboard</h2>
+<h2>🎓 Student Dashboard</h2>
 
 <div class="container">
     <h2>Predict Performance</h2>
 
-    <form action="/student/predict" method="post" class="form-grid">
+<form action="/student/predict" method="post" class="form-grid">
 
-        <div class="form-group">
-            <label>Attendance (%)</label>
-            <input type="number" name="attendance_percent" min="0" max="100" required>
-        </div>
+    <div class="form-group">
+        <label>Attendance (%)</label>
+        <input type="number" name="attendance_percent" min="0" max="100" required>
+    </div>
 
-        <div class="form-group">
-            <label>Internal Marks</label>
-            <input type="number" name="internal_marks" min="0" max="100" required>
-        </div>
+    <div class="form-group">
+        <label>Internal Marks</label>
+        <input type="number" name="internal_marks" min="0" max="100" required>
+    </div>
 
-        <div class="form-group">
-            <label>Assignment Score</label>
-            <input type="number" name="assignment_score" min="0" max="100" required>
-        </div>
+    <div class="form-group">
+        <label>Assignment Score</label>
+        <input type="number" name="assignment_score" min="0" max="100" required>
+    </div>
 
-        <div class="form-group">
-            <label>Quiz Score</label>
-            <input type="number" name="quiz_score" min="0" max="100" required>
-        </div>
+    <div class="form-group">
+        <label>Quiz Score</label>
+        <input type="number" name="quiz_score" min="0" max="100" required>
+    </div>
 
-        <div class="form-group">
-            <label>Study Hours / Day</label>
-            <input type="number" step="0.1" name="study_hours_per_day" min="0" max="24" required>
-        </div>
+    <div class="form-group">
+        <label>Study Hours / Day</label>
+        <input type="number" step="0.1" name="study_hours_per_day" min="0" max="24" required>
+    </div>
 
-        <div class="form-group">
-            <label>Previous CGPA</label>
-            <input type="number" step="0.1" name="previous_cgpa" min="0" max="10" required>
-        </div>
+    <div class="form-group">
+        <label>Previous CGPA</label>
+        <input type="number" step="0.1" name="previous_cgpa" min="0" max="10" required>
+    </div>
 
-        <div class="form-group">
-            <label>Backlogs</label>
-            <input type="number" name="backlogs" min="0" max="10" required>
-        </div>
+    <div class="form-group">
+        <label>Backlogs</label>
+        <input type="number" name="backlogs" min="0" max="10" required>
+    </div>
 
-        <!-- 🔥 NEW FIELD -->
-        <div class="form-group">
-            <label>Class Participation</label>
-            <select name="classParticipation" required>
-                <option value="">Select</option>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-        </div>
+    <div class="form-group">
+        <label>Class Participation</label>
+        <select name="classParticipation" required>
+            <option value="">Select</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+    </div>
 
-        <!-- 🔥 NEW FIELD -->
-        <div class="form-group">
-            <label>Submission Regular</label>
-            <select name="submissionRegular" required>
-                <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
+    <div class="form-group">
+        <label>Submission Regular</label>
+        <select name="submissionRegular" required>
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
 
-        <div class="form-actions">
-            <button type="submit">Predict</button>
-        </div>
+    <div class="form-actions">
+        <button type="submit">Predict</button>
+    </div>
 
-    </form>
+</form>
 
-    <a href="/student/progress">View Performance Trend</a>
+<a href="/student/progress">📊 View Performance Trend</a>
+
+
 </div>
 
 </body>
