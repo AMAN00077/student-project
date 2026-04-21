@@ -1,176 +1,191 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Student Prediction Result</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            margin: 0;
-            padding: 0;
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #eef2f3, #dbe9f4);
+        margin: 0;
+    }
+
+    .container {
+        width: 75%;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    /* RESULT GRID */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .card {
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+    }
+
+    .id-card { background: #34495e; }
+    .pass-card { background: #2ecc71; }
+    .fail-card { background: #e74c3c; }
+    .cgpa-card { background: #3498db; }
+    .low { background: #27ae60; }
+    .medium { background: #f39c12; }
+    .high { background: #c0392b; }
+
+    .card h4 { margin: 0; }
+    .card p {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 8px;
+    }
+
+    /* INFO BOX */
+    .box {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .reason {
+        background: #fff8e1;
+        border-left: 6px solid #f1c40f;
+    }
+
+    .suggestion {
+        background: #eafaf1;
+        border-left: 6px solid #2ecc71;
+    }
+
+    /* TABLE */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th {
+        background: #3498db;
+        color: white;
+        padding: 10px;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    tr:hover {
+        background: #f1f7ff;
+    }
+
+    /* BUTTON */
+    .btn {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 20px;
+        background: linear-gradient(45deg, #3498db, #5dade2);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .grid {
+            grid-template-columns: 1fr;
         }
+    }
+</style>
 
-        .container {
-            width: 70%;
-            margin: 50px auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-        }
-
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-
-        .box {
-            background: #ecf3ff;
-            border-left: 6px solid #3498db;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-        }
-
-        .label {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .value {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        /* 🔥 COLOR BASED RESULT */
-        .pass { color: #2ecc71; }
-        .fail { color: #e74c3c; }
-
-        .low { color: #27ae60; }
-        .medium { color: #f39c12; }
-        .high { color: #c0392b; }
-
-        /* 🔥 REASON */
-        .reason {
-            background: #fff8e1;
-            border-left: 6px solid #f1c40f;
-            padding: 20px;
-            border-radius: 6px;
-            margin-top: 20px;
-        }
-
-        /* 🔥 SUGGESTION */
-        .suggestion {
-            background: #eafaf1;
-            border-left: 6px solid #2ecc71;
-            padding: 20px;
-            border-radius: 6px;
-            margin-top: 20px;
-        }
-
-        /* 🔥 TABLE */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th {
-            background: #3498db;
-            color: white;
-            padding: 10px;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 20px;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        .btn:hover {
-            background: #2471a3;
-        }
-    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2>📊 Student Prediction Result</h2>
+<h2>📊 Student Prediction Result</h2>
 
-    <div class="box">
-        <div class="label">Student ID</div>
-        <div class="value" th:text="${studentId}"></div>
+<!-- RESULT CARDS -->
+<div class="grid">
+
+    <div class="card id-card">
+        <h4>Student ID</h4>
+        <p th:text="${studentId}"></p>
     </div>
 
-    <div class="box">
-        <div class="label">Pass / Fail</div>
-        <div class="value"
-             th:text="${passFail}"
-             th:classappend="${passFail == 'Pass'} ? 'pass' : 'fail'">
-        </div>
+    <div th:classappend="${passFail == 'Pass'} ? 'card pass-card' : 'card fail-card'">
+        <h4>Pass / Fail</h4>
+        <p th:text="${passFail}"></p>
     </div>
 
-    <div class="box">
-        <div class="label">Risk Level</div>
-        <div class="value"
-             th:text="${riskLevel}"
-             th:classappend="
-                ${riskLevel == 'Low'} ? 'low' :
-                (${riskLevel == 'Medium'} ? 'medium' : 'high')">
-        </div>
+    <div th:classappend="
+        ${riskLevel == 'Low'} ? 'card low' :
+        (${riskLevel == 'Medium'} ? 'card medium' : 'card high')">
+        <h4>Risk</h4>
+        <p th:text="${riskLevel}"></p>
     </div>
 
-    <div class="box">
-        <div class="label">Predicted CGPA</div>
-        <div class="value" th:text="${predictedCgpa}"></div>
+    <div class="card cgpa-card">
+        <h4>CGPA</h4>
+        <p th:text="${predictedCgpa}"></p>
     </div>
 
-    <!-- 🔥 REASON -->
-    <div class="reason">
-        <strong>Why this result?</strong>
-        <p th:text="${reason}"></p>
-    </div>
+</div>
 
-    <!-- 🔥 STUDY PLAN -->
-    <div class="suggestion">
-        <strong>Recommended Study Plan</strong>
-        <p th:text="${suggestion}"></p>
-    </div>
+<!-- REASON -->
+<div class="box reason">
+    <h3>Why this result?</h3>
+    <p th:text="${reason}"></p>
+</div>
 
-    <!-- 🔥 XAI TABLE -->
-    <div th:if="${explanation != null}">
-        <h3>Feature Importance (XAI)</h3>
+<!-- SUGGESTION -->
+<div class="box suggestion">
+    <h3>Recommended Study Plan</h3>
+    <p th:text="${suggestion}"></p>
+</div>
 
-        <table>
-            <tr>
-                <th>Feature</th>
-                <th>Impact (%)</th>
-            </tr>
+<!-- XAI -->
+<div th:if="${explanation != null}">
+    <h3>Feature Importance (XAI)</h3>
 
-            <tr th:each="entry : ${explanation}">
-                <td th:text="${entry.key}"></td>
-                <td th:text="${entry.value}"></td>
-            </tr>
-        </table>
-    </div>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>Impact (%)</th>
+        </tr>
 
-    <a class="btn" href="/teacher/dashboard">⬅ Back to Teacher Dashboard</a>
+        <tr th:each="entry : ${explanation}">
+            <td th:text="${entry.key}"></td>
+            <td th:text="${entry.value}"></td>
+        </tr>
+    </table>
+</div>
+
+<a class="btn" href="/teacher/dashboard">⬅ Back to Dashboard</a>
+
 
 </div>
 
