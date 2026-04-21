@@ -1,125 +1,146 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Bulk Prediction Result</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 0;
-        }
 
-        .container {
-            width: 85%;
-            margin: 40px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #eef2f3, #dbe9f4);
+        margin: 0;
+    }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-        }
+    .container {
+        width: 85%;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
 
-        th {
-            background: #3498db;
-            color: white;
-            padding: 12px;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
+    th {
+        background: #3498db;
+        color: white;
+        padding: 12px;
+    }
 
-        tr:hover {
-            background-color: #f2f2f2;
-        }
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
 
-        .btn {
-            display: inline-block;
-            margin: 15px 10px;
-            padding: 10px 22px;
-            border-radius: 6px;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
+    tr:hover {
+        background-color: #f1f7ff;
+    }
 
-        .btn-back {
-            background-color: #3498db;
-        }
+    /* RESULT COLORS */
+    .pass { color: #2ecc71; font-weight: bold; }
+    .fail { color: #e74c3c; font-weight: bold; }
 
-        .btn-back:hover {
-            background-color: #21618c;
-        }
+    .low { color: #27ae60; }
+    .medium { color: #f39c12; }
+    .high { color: #c0392b; }
 
-        .btn-download {
-            background-color: #27ae60;
-        }
+    /* BUTTONS */
+    .btn {
+        display: inline-block;
+        margin: 15px 10px;
+        padding: 12px 22px;
+        border-radius: 25px;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+        transition: 0.3s;
+    }
 
-        .btn-download:hover {
-            background-color: #1e8449;
-        }
+    .btn-back {
+        background: linear-gradient(45deg, #3498db, #5dade2);
+    }
 
-        .btn-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .btn-download {
+        background: linear-gradient(45deg, #27ae60, #52be80);
+    }
 
-    </style>
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+</style>
+
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2>📊 Bulk Prediction Result</h2>
 
-    <table>
-        <tr>
-            <th>Student ID</th>
-            <th>Attendance</th>
-            <th>Pass / Fail</th>
-            <th>Risk Level</th>
-            <th>Predicted CGPA</th>
-        </tr>
+<h2>📊 Bulk Prediction Result</h2>
 
-        <tr th:each="p : ${predictions}">
-            <td th:text="${p.studentId}"></td>
-            <td th:text="${p.attendance}"></td>
-            <td th:text="${p.pass_fail}"></td>
-            <td th:text="${p.risk}"></td>
-            <td th:text="${p.cgpa}"></td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <th>Student ID</th>
+        <th>Attendance</th>
+        <th>Pass / Fail</th>
+        <th>Risk Level</th>
+        <th>Predicted CGPA</th>
+    </tr>
 
-    <div class="btn-container">
+    <tr th:each="p : ${predictions}">
+        <td th:text="${p.studentId}"></td>
+        <td th:text="${p.attendance}"></td>
 
-        <!-- 🔥 DOWNLOAD BUTTON -->
-        <form action="/teacher/download-predictions" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-download">
-                📥 Download Prediction Excel
-            </button>
-        </form>
+        <!-- PASS FAIL COLOR -->
+        <td th:text="${p.pass_fail}"
+            th:classappend="${p.pass_fail == 'Pass'} ? 'pass' : 'fail'">
+        </td>
 
-        <!-- BACK BUTTON -->
-        <a href="/teacher/dashboard" class="btn btn-back">
-            ⬅ Back to Dashboard
-        </a>
+        <!-- RISK COLOR -->
+        <td th:text="${p.risk}"
+            th:classappend="
+                ${p.risk == 'Low'} ? 'low' :
+                (${p.risk == 'Medium'} ? 'medium' : 'high')">
+        </td>
 
-    </div>
+        <td th:text="${p.cgpa}"></td>
+    </tr>
+</table>
+
+<div class="btn-container">
+
+    <form action="/teacher/download-predictions" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-download">
+            📥 Download Excel
+        </button>
+    </form>
+
+    <a href="/teacher/dashboard" class="btn btn-back">
+        ⬅ Back to Dashboard
+    </a>
+
+</div>
+
 
 </div>
 
